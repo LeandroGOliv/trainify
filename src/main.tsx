@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { Toaster } from './components/ui/sonner.tsx'
 import * as TanStackQueryProvider from './integrations/tanstack-query/root-provider.tsx'
-import { ThemeProvider } from './components/ui/ThemeProvider.tsx'
+import { ThemeProvider } from './components/ui/theme-provider.tsx'
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
