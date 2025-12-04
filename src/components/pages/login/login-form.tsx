@@ -3,8 +3,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { LoginSchema } from '@/utils/schemas/login'
-import { useMutation } from '@tanstack/react-query'
-import type { AxiosError } from 'axios'
+// import { useMutation } from '@tanstack/react-query'
+// import type { AxiosError } from 'axios'
 import { useNavigate } from '@tanstack/react-router'
 import {
   Form,
@@ -17,10 +17,9 @@ import {
 } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Eye, EyeOff } from 'lucide-react'
 
 const LoginForm = () => {
-  const [isPending, setIsPending] = useState(false)
+  const [isPending, _setIsPending] = useState(false)
 
   const methods = useForm<LoginSchema>({
     resolver: zodResolver(LoginSchema),
@@ -31,37 +30,37 @@ const LoginForm = () => {
     },
   })
 
-  const { mutate } = useMutation({
-    mutationFn: async (form: LoginSchema) => {
-      setIsPending(true)
-      return // falta requisicao
-    },
-    onSuccess: () => {
-      toast.success('Logado com sucesso!')
-    },
-    onError: (e: AxiosError) => {
-      setIsPending(false)
-      toast.error(e.message || 'Usuário e/ou senha inválidos.')
-    },
-  })
+  // const { mutate } = useMutation({
+  //   mutationFn: async (form: LoginSchema) => {
+  //     setIsPending(true)
+  //     return // falta requisicao
+  //   },
+  //   onSuccess: () => {
+  //     toast.success('Logado com sucesso!')
+  //   },
+  //   onError: (e: AxiosError) => {
+  //     setIsPending(false)
+  //     toast.error(e.message || 'Usuário e/ou senha inválidos.')
+  //   },
+  // })
 
   const navigate = useNavigate()
 
   function onSubmit(e: LoginSchema) {
     // mutate(e)
     console.log(e)
+    toast.success('Logado com sucesso!')
     navigate({ to: '/' })
   }
-  const [isView, setIsView] = useState(false)
 
   return (
-    <div className="h-7/12 w-xl flex flex-col bg-amber-300">
+    <div className="h-7/12 w-xl flex flex-col">
       <Form {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <FormField
             control={methods.control}
             name="email"
-            render={() => (
+            render={({ field }) => (
               <FormItem>
                 <FormLabel>Email:</FormLabel>
                 <FormControl>
@@ -69,6 +68,7 @@ const LoginForm = () => {
                     id="email"
                     type="email"
                     placeholder="exemplo@email.com.br"
+                    {...field}
                   />
                 </FormControl>
                 <FormDescription />
@@ -79,33 +79,32 @@ const LoginForm = () => {
           <FormField
             control={methods.control}
             name="password"
-            render={() => (
+            render={({ field }) => (
               <FormItem>
                 <FormLabel>Senha:</FormLabel>
                 <FormControl>
-                  <div className="relative">
-                    <Input type={isView ? 'text' : 'password'} id="password" />
-                    {isView ? (
-                      <Eye
-                        className="absolute right-2 top-2 z-10 cursor-pointer text-gray-500"
-                        onClick={() => {
-                          ;(setIsView(!isView), console.log(isView))
-                        }}
-                      />
-                    ) : (
-                      <EyeOff
-                        className="absolute right-2 top-2 z-10 cursor-pointer text-gray-500"
-                        onClick={() => setIsView(!isView)}
-                      />
-                    )}
-                  </div>
+                  <Input type="password" id="password" {...field} />
                 </FormControl>
                 <FormDescription />
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit">Acessar</Button>
+          <FormField
+            control={methods.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Lembrar-me:</FormLabel>
+                <FormControl></FormControl>
+                <FormDescription />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" loading={isPending}>
+            Acessar
+          </Button>
         </form>
       </Form>
     </div>

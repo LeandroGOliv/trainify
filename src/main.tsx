@@ -43,7 +43,7 @@ if (rootElement && !rootElement.innerHTML) {
         <ZodProvider>
           <TanStackQueryProvider.Provider {...TanStackQueryProviderContext}>
             <RouterProvider router={router} />
-            <Toaster />
+            <Toaster position="top-right" />
           </TanStackQueryProvider.Provider>
         </ZodProvider>
       </ThemeProvider>

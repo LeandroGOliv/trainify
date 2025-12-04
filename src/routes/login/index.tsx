@@ -7,6 +7,7 @@ export const Route = createFileRoute('/login/')({
 function RouteComponent() {
   return (
     <div className="w-dvw h-dvh flex justify-center items-center">
+      <h1></h1>
       <LoginForm />
     </div>
   )
