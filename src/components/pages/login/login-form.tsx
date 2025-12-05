@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Checkbox } from '@/components/ui/checkbox'
 
 const LoginForm = () => {
   const [isPending, _setIsPending] = useState(false)
@@ -92,11 +93,17 @@ const LoginForm = () => {
           />
           <FormField
             control={methods.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
+            name="remember"
+            render={({ field: { onChange, value } }) => (
+              <FormItem className="flex">
                 <FormLabel>Lembrar-me:</FormLabel>
-                <FormControl></FormControl>
+                <FormControl>
+                  <Checkbox
+                    id="remember"
+                    onCheckedChange={onChange}
+                    checked={value}
+                  />
+                </FormControl>
                 <FormDescription />
                 <FormMessage />
               </FormItem>
