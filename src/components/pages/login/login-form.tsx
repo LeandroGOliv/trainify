@@ -57,7 +57,7 @@ const LoginForm = () => {
   return (
     <div className="h-7/12 w-xl flex flex-col">
       <Form {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-2">
           <FormField
             control={methods.control}
             name="email"
@@ -109,10 +109,17 @@ const LoginForm = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" loading={isPending}>
+          <Button className="w-full" type="submit" loading={isPending}>
             Acessar
           </Button>
         </form>
+        <Button
+          className="w-full mt-2"
+          variant={'secondary'}
+          onClick={() => console.log(`teste`)}
+        >
+          Recuperar senha
+        </Button>
       </Form>
     </div>
   )

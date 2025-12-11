@@ -6,11 +6,12 @@ export const Route = createFileRoute('/login/')({
 
 function RouteComponent() {
   return (
-    <div className="w-dvw h-dvh flex justify-center items-center">
+    <div className="w-dvw h-dvh flex justify-center items-center text-center">
       <div>
-        <h1 className="text-5xl font-bold bg-linear-to-r from-primary to-primary/10 text-transparent bg-clip-text">
+        <h1 className="text-8xl font-bold bg-linear-to-r from-primary to-primary/10 text-transparent bg-clip-text mb-8">
           Trainify
         </h1>
+
         <LoginForm />
       </div>
     </div>
