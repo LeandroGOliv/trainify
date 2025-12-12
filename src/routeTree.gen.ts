@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as HomeRouteImport } from './routes/home'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LoginIndexRouteImport } from './routes/login/index'
 import { Route as LoginRecoverRouteImport } from './routes/login/recover'
 import { Route as DemoTableRouteImport } from './routes/demo/table'
 
+const HomeRoute = HomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,12 +43,14 @@ const DemoTableRoute = DemoTableRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/home': typeof HomeRoute
   '/demo/table': typeof DemoTableRoute
   '/login/recover': typeof LoginRecoverRoute
   '/login': typeof LoginIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/home': typeof HomeRoute
   '/demo/table': typeof DemoTableRoute
   '/login/recover': typeof LoginRecoverRoute
   '/login': typeof LoginIndexRoute
@@ -50,20 +58,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/home': typeof HomeRoute
   '/demo/table': typeof DemoTableRoute
   '/login/recover': typeof LoginRecoverRoute
   '/login/': typeof LoginIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/demo/table' | '/login/recover' | '/login'
+  fullPaths: '/' | '/home' | '/demo/table' | '/login/recover' | '/login'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/demo/table' | '/login/recover' | '/login'
-  id: '__root__' | '/' | '/demo/table' | '/login/recover' | '/login/'
+  to: '/' | '/home' | '/demo/table' | '/login/recover' | '/login'
+  id: '__root__' | '/' | '/home' | '/demo/table' | '/login/recover' | '/login/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  HomeRoute: typeof HomeRoute
   DemoTableRoute: typeof DemoTableRoute
   LoginRecoverRoute: typeof LoginRecoverRoute
   LoginIndexRoute: typeof LoginIndexRoute
@@ -71,6 +81,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/home': {
+      id: '/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,6 +121,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  HomeRoute: HomeRoute,
   DemoTableRoute: DemoTableRoute,
   LoginRecoverRoute: LoginRecoverRoute,
   LoginIndexRoute: LoginIndexRoute,

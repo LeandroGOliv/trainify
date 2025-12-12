@@ -51,7 +51,7 @@ const LoginForm = () => {
     // mutate(e)
     console.log(e)
     toast.success('Logado com sucesso!')
-    navigate({ to: '/' })
+    navigate({ to: '/home' })
   }
 
   return (

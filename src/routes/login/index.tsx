@@ -11,7 +11,6 @@ function RouteComponent() {
         <h1 className="text-8xl font-bold bg-linear-to-r from-primary to-primary/10 text-transparent bg-clip-text mb-8">
           Trainify
         </h1>
-
         <LoginForm />
       </div>
     </div>
