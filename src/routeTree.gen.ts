@@ -11,8 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as LoginIndexRouteImport } from './routes/login/index'
 import { Route as LoginRecoverRouteImport } from './routes/login/recover'
+import { Route as LoginLoginRouteImport } from './routes/login/login'
 import { Route as DemoTableRouteImport } from './routes/demo/table'
 
 const HomeRoute = HomeRouteImport.update({
@@ -25,14 +25,14 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LoginIndexRoute = LoginIndexRouteImport.update({
-  id: '/login/',
-  path: '/login/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LoginRecoverRoute = LoginRecoverRouteImport.update({
   id: '/login/recover',
   path: '/login/recover',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginLoginRoute = LoginLoginRouteImport.update({
+  id: '/login/login',
+  path: '/login/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoTableRoute = DemoTableRouteImport.update({
@@ -45,38 +45,44 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
   '/demo/table': typeof DemoTableRoute
+  '/login/login': typeof LoginLoginRoute
   '/login/recover': typeof LoginRecoverRoute
-  '/login': typeof LoginIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
   '/demo/table': typeof DemoTableRoute
+  '/login/login': typeof LoginLoginRoute
   '/login/recover': typeof LoginRecoverRoute
-  '/login': typeof LoginIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
   '/demo/table': typeof DemoTableRoute
+  '/login/login': typeof LoginLoginRoute
   '/login/recover': typeof LoginRecoverRoute
-  '/login/': typeof LoginIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/home' | '/demo/table' | '/login/recover' | '/login'
+  fullPaths: '/' | '/home' | '/demo/table' | '/login/login' | '/login/recover'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/home' | '/demo/table' | '/login/recover' | '/login'
-  id: '__root__' | '/' | '/home' | '/demo/table' | '/login/recover' | '/login/'
+  to: '/' | '/home' | '/demo/table' | '/login/login' | '/login/recover'
+  id:
+    | '__root__'
+    | '/'
+    | '/home'
+    | '/demo/table'
+    | '/login/login'
+    | '/login/recover'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HomeRoute: typeof HomeRoute
   DemoTableRoute: typeof DemoTableRoute
+  LoginLoginRoute: typeof LoginLoginRoute
   LoginRecoverRoute: typeof LoginRecoverRoute
-  LoginIndexRoute: typeof LoginIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -95,18 +101,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/login/': {
-      id: '/login/'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/login/recover': {
       id: '/login/recover'
       path: '/login/recover'
       fullPath: '/login/recover'
       preLoaderRoute: typeof LoginRecoverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login/login': {
+      id: '/login/login'
+      path: '/login/login'
+      fullPath: '/login/login'
+      preLoaderRoute: typeof LoginLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/table': {
@@ -123,8 +129,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HomeRoute: HomeRoute,
   DemoTableRoute: DemoTableRoute,
+  LoginLoginRoute: LoginLoginRoute,
   LoginRecoverRoute: LoginRecoverRoute,
-  LoginIndexRoute: LoginIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

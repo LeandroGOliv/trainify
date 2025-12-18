@@ -19,7 +19,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Checkbox } from '@/components/ui/checkbox'
 
-const LoginForm = () => {
+export default function LoginForm() {
   const [isPending, _setIsPending] = useState(false)
 
   const methods = useForm<LoginSchema>({
@@ -55,7 +55,7 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="h-7/12 w-xl flex flex-col">
+    <div className="h-6/12 w-80 flex flex-col">
       <Form {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-2">
           <FormField
@@ -124,5 +124,3 @@ const LoginForm = () => {
     </div>
   )
 }
-
-export default LoginForm
